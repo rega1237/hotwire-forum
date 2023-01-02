@@ -11,12 +11,19 @@
   </head>
 
   <body>
+
+    <%= render "layouts/partials/navbar" %>
+
     <% if notice %>
-      <p class="notice"><%= notice %></p>
+      <div class="alert alert-success" role="alert">
+        <%= notice %>
+      </div>
     <% end %>
 
     <% if alert %>
-      <p class="alert"><%= alert %></p>
+      <div class="alert alert-danger" role="alert">
+        <%= alert %>
+      </div>
     <% end %>
     
     <%= yield %>
