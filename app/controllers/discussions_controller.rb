@@ -1,5 +1,5 @@
 class DiscussionsController < ApplicationController
-  before_action :set_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :set_discussion, only: %i[show edit update destroy]
   def index
     @discussions = Discussion.all
   end
@@ -12,7 +12,7 @@ class DiscussionsController < ApplicationController
     @discussion = Discussion.new(discussion_params)
     @discussion.user = current_user
     if @discussion.save
-      redirect_to @discussion, notice: "Discussion was created successfully"
+      redirect_to @discussion, notice: 'Discussion was created successfully'
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,8 +24,8 @@ class DiscussionsController < ApplicationController
 
   def update
     if @discussion.update(discussion_params)
-      @discussion.broadcast_replace(partial: "discussions/show_top", locals: { discussion: @discussion })
-      redirect_to @discussion, notice: "Discussion was updated successfully"
+      @discussion.broadcast_replace(partial: 'discussions/show_top', locals: { discussion: @discussion })
+      redirect_to @discussion, notice: 'Discussion was updated successfully'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class DiscussionsController < ApplicationController
 
   def destroy
     @discussion.destroy
-    redirect_to discussions_path, notice: "Discussion was deleted successfully"
+    redirect_to discussions_path, notice: 'Discussion was deleted successfully'
   end
 
   private
