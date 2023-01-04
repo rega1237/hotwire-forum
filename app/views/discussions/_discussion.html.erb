@@ -1,0 +1,6 @@
+<div id= '<%= dom_id(discussion) %>'class="mb-2">
+  <%= link_to discussion_path(discussion) do %>
+    <h2> <%= discussion.title %> </h2>
+  <%end%>
+  Pinned: <%= discussion.pinned %> | Closed: <%= discussion.closed %>
+</div>

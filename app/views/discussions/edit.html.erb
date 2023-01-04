@@ -1,0 +1,5 @@
+<%= turbo_frame_tag @discussion do %>
+  <%= render "form", discussion: @discussion %>
+
+  <%= link_to 'Cancel', @discussion %>
+<% end %>
