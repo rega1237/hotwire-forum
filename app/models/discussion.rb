@@ -1,6 +1,8 @@
 class Discussion < ApplicationRecord
   belongs_to :user
 
+  has_many :posts, dependent: :destroy
+
   validates :title, presence: true
 
   after_create_commit -> { broadcast_append_to 'discussions' }
