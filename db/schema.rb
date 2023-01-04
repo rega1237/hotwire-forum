@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_205650) do
   enable_extension "plpgsql"
 
   create_table "discussions", force: :cascade do |t|
-    t.string "name"
+    t.string "title", null: false
     t.boolean "pinned", default: false
     t.boolean "closed", default: false
     t.bigint "user_id", null: false
