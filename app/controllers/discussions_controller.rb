@@ -6,11 +6,11 @@ class DiscussionsController < ApplicationController
 
   def new
     @discussion = Discussion.new
+    @discussion.posts.new
   end
 
   def create
     @discussion = Discussion.new(discussion_params)
-    @discussion.user = current_user
     if @discussion.save
       redirect_to @discussion, notice: 'Discussion was created successfully'
     else
@@ -39,7 +39,7 @@ class DiscussionsController < ApplicationController
   private
 
   def discussion_params
-    params.require(:discussion).permit(:title, :pinned, :closed)
+    params.require(:discussion).permit(:title, :pinned, :closed, posts_attributes: :body)
   end
 
   def set_discussion
