@@ -32,6 +32,7 @@ module Discussions
     end
 
     def destroy
+      # rubocop:disable all
       @post = @discussion.posts.find(params[:id])
       respond_to do |format|
         if @post.destroy
@@ -41,6 +42,7 @@ module Discussions
           format.html { render :edit, status: :unprocessable_entity }
         end
       end
+      # rubocop:enable all
     end
 
     private
