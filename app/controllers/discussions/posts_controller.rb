@@ -2,7 +2,7 @@ module Discussions
   class PostsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_discussion
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
+    before_action :set_post, only: %i[show edit update destroy]
 
     def show; end
 
@@ -11,7 +11,7 @@ module Discussions
     def update
       respond_to do |format|
         if @post.update(post_params)
-          format.html { redirect_to @post.discussion, notice: "Your post was updated successfully." }
+          format.html { redirect_to @post.discussion, notice: 'Your post was updated successfully.' }
         else
           format.html { render :edit, status: :unprocessable_entity }
         end
@@ -20,10 +20,10 @@ module Discussions
 
     def create
       @post = @discussion.posts.new(post_params)
-      
+
       respond_to do |format|
         if @post.save
-          format.html { redirect_to discussion_path(@discussion), notice: "Your post was created successfully." }
+          format.html { redirect_to discussion_path(@discussion), notice: 'Your post was created successfully.' }
         else
           format.turbo_stream
           format.html { render :new, status: :unprocessable_entity }
@@ -35,8 +35,8 @@ module Discussions
       @post = @discussion.posts.find(params[:id])
       respond_to do |format|
         if @post.destroy
-          format.turbo_stream {  }
-          format.html { redirect_to discussion_path(@discussion), notice: "Your post was deleted successfully." }
+          format.turbo_stream {}
+          format.html { redirect_to discussion_path(@discussion), notice: 'Your post was deleted successfully.' }
         else
           format.html { render :edit, status: :unprocessable_entity }
         end
@@ -56,5 +56,5 @@ module Discussions
     def post_params
       params.require(:post).permit(:body)
     end
-  end 
+  end
 end
