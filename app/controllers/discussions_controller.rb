@@ -18,7 +18,10 @@ class DiscussionsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @posts = @discussion.posts.all.order(created_at: :asc)
+    @new_post = @discussion.posts.new
+  end
 
   def edit; end
 

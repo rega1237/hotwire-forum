@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
 
-  resources :discussions
+  resources :discussions do
+    resources :posts, only: [:create, :destroy, :show, :edit, :update], module: :discussions
+  end
 end
