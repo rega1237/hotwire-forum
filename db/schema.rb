@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_221115) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "post_count", default: 0
+    t.integer "posts_count", default: 0
     t.index ["user_id"], name: "index_discussions_on_user_id"
   end
 

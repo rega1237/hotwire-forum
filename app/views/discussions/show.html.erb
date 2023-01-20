@@ -1,3 +1,11 @@
 <%= turbo_stream_from @discussion %>
 
 <%= render 'discussions/show_top', discussion: @discussion %>
+
+<div id="posts" class="mt-4">
+  <%= render partial: "discussions/posts/post", collection: @posts %>
+</div>
+
+<div id="<%= dom_id(@new_post) %>" class=my-4>
+  <%= render partial: 'discussions/posts/form', format: :html, locals: {post: @new_post}  %>
+</div>

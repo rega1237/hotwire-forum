@@ -1,7 +1,9 @@
 class Discussion < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, default: -> { Current.user }
 
   has_many :posts, dependent: :destroy
+
+  accepts_nested_attributes_for :posts
 
   validates :title, presence: true
 
