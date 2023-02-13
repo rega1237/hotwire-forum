@@ -5,7 +5,5 @@ class Category < ApplicationRecord
   after_update_commit { broadcast_replace_to 'categories' }
   after_destroy_commit { broadcast_remove_to 'categories' }
 
-
   validates :name, presence: true, uniqueness: true
-
 end
