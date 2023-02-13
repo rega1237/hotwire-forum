@@ -11,7 +11,7 @@
           <%= link_to "Discussions", discussions_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Categories", categories_path, class: "nav-link"%>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
@@ -25,7 +25,7 @@
           </ul>
         </li>
       </ul>
-        
+
       <div class="d-lg-flex col-lg-3 justify-content-lg-end">
         <% if !current_user %>
           <%= link_to "Log In", new_user_session_path, class: "nav-item nav-link" %>

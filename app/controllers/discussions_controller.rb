@@ -2,6 +2,7 @@ class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit update destroy]
   def index
     @discussions = Discussion.all
+    @categories = Category.all
   end
 
   def new
@@ -42,7 +43,7 @@ class DiscussionsController < ApplicationController
   private
 
   def discussion_params
-    params.require(:discussion).permit(:title, :pinned, :closed, posts_attributes: :body)
+    params.require(:discussion).permit(:title, :category_id, :pinned, :closed, posts_attributes: :body)
   end
 
   def set_discussion
