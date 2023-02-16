@@ -9,5 +9,9 @@ Rails.application.routes.draw do
 
   resources :discussions do
     resources :posts, only: [:create, :destroy, :show, :edit, :update], module: :discussions
+
+    collection do
+      get "categories/:id", to: "categories/discussions#index", as: "categories"
+    end
   end
 end

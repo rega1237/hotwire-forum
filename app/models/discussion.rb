@@ -2,11 +2,15 @@ class Discussion < ApplicationRecord
   belongs_to :user, default: -> { Current.user }
   belongs_to :category, counter_cache: true, touch: true
 
+  delegate :name, to: :category, prefix: :category, allow_nil: true
+
   has_many :posts, dependent: :destroy
 
   accepts_nested_attributes_for :posts
 
   validates :title, presence: true
+
+  broadcasts_to :category, inserts_by: :prepend
 
   after_create_commit -> { broadcast_append_to 'discussions' }
   after_update_commit -> { broadcast_replace_to 'discussions' }

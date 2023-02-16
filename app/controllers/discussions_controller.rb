@@ -2,7 +2,6 @@ class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit update destroy]
   def index
     @discussions = Discussion.all
-    @categories = Category.all
   end
 
   def new

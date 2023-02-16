@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_020546) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "discussions_count"
+    t.integer "discussions_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
