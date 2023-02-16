@@ -5,7 +5,7 @@ module Categories
 
     def index
       @discussions = @category.discussions.order(updated_at: :desc)
-      render "discussions/index"
+      render 'discussions/index'
     end
 
     private
@@ -13,6 +13,5 @@ module Categories
     def set_category
       @category = Category.find(params[:id])
     end
-
   end
 end
