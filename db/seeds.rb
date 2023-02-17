@@ -24,10 +24,11 @@ end
 
 def create_discussions(discussions)
   puts 'Creating discussions...'
+  bool = [true, false]
   discussions.each do |discussion|
     user = User.all.sample
     categorie = Category.all.sample
-    Discussion.create(title: discussion, user_id: user.id, category_id: categorie.id)
+    Discussion.create(title: discussion, user_id: user.id, category_id: categorie.id, pinned: bool.sample, closed: bool.sample)
   end
   puts 'Discussions created!'
 end
