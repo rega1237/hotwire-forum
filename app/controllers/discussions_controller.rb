@@ -25,6 +25,7 @@ class DiscussionsController < ApplicationController
 
   def edit; end
 
+  # rubocop:disable Metrics/MethodLength
   def update
     if @discussion.update(discussion_params)
       @discussion.broadcast_replace(partial: 'discussions/show_top', locals: { discussion: @discussion })
@@ -58,6 +59,7 @@ class DiscussionsController < ApplicationController
       locals: { post: @discussion.posts.new }
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def destroy
     @discussion.destroy
