@@ -48,15 +48,15 @@ class DiscussionsController < ApplicationController
       new_category.reload.broadcast_replace_to('categories')
     end
 
-    if @discussion.closed_previously_changed?
-      @discussion.broadcast_action_to(
-        @discussion,
-        action: :replace,
-        target: "new_post_form",
-        partial: 'discussions/posts/form',
-        locals: { post: @discussion.posts.new }
-      )
-    end
+    return unless @discussion.closed_previously_changed?
+
+    @discussion.broadcast_action_to(
+      @discussion,
+      action: :replace,
+      target: 'new_post_form',
+      partial: 'discussions/posts/form',
+      locals: { post: @discussion.posts.new }
+    )
   end
 
   def destroy
