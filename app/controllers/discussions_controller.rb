@@ -5,6 +5,7 @@ class DiscussionsController < ApplicationController
   end
 
   def new
+    authorize! :create, Discussion
     @discussion = Discussion.new
     @discussion.posts.new
   end
@@ -23,7 +24,9 @@ class DiscussionsController < ApplicationController
     @new_post = @discussion.posts.new
   end
 
-  def edit; end
+  def edit
+    authorize! :edit, @discussion
+  end
 
   # rubocop:disable Metrics/MethodLength
   def update
@@ -62,6 +65,7 @@ class DiscussionsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   def destroy
+    authorize! :destroy, @discussion
     @discussion.destroy
     redirect_to discussions_path, notice: 'Discussion was deleted successfully'
   end
