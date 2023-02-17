@@ -2,5 +2,6 @@
   <%= link_to discussion_path(discussion), class: "text-decoration-none text-dark" do %>
     <h2> <%= discussion.title %> </h2>
   <%end%>
-  Pinned: <%= discussion.pinned %> | Closed: <%= discussion.closed %>
+  Pinned: <%= discussion.pinned %> | Closed: <%= discussion.closed %> <br>
+  Posted in: <%= discussion.category.name %> || <%= discussion.posts.count %> posts
 </div>

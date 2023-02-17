@@ -1,7 +1,7 @@
 class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit update destroy]
   def index
-    @discussions = Discussion.all
+    @discussions = Discussion.all.order(pinned: :desc, created_at: :desc)
   end
 
   def new
@@ -25,6 +25,7 @@ class DiscussionsController < ApplicationController
 
   def edit; end
 
+  # rubocop:disable Metrics/MethodLength
   def update
     if @discussion.update(discussion_params)
       @discussion.broadcast_replace(partial: 'discussions/show_top', locals: { discussion: @discussion })
@@ -32,7 +33,33 @@ class DiscussionsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+
+    if @discussion.category_previously_changed?
+
+      old_category_id, new_category_id = @discussion.category_id_previous_change
+      old_category = Category.find(old_category_id)
+      new_category = Category.find(new_category_id)
+
+      # remove it from the old category list / insert to new list
+      @discussion.broadcast_remove_to(old_category)
+      @discussion.broadcast_prepend_to(new_category)
+
+      # Update categories by replacing them. This updates the counters in the sidebar.
+      old_category.reload.broadcast_replace_to('categories')
+      new_category.reload.broadcast_replace_to('categories')
+    end
+
+    return unless @discussion.closed_previously_changed?
+
+    @discussion.broadcast_action_to(
+      @discussion,
+      action: :replace,
+      target: 'new_post_form',
+      partial: 'discussions/posts/form',
+      locals: { post: @discussion.posts.new }
+    )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def destroy
     @discussion.destroy
@@ -42,7 +69,7 @@ class DiscussionsController < ApplicationController
   private
 
   def discussion_params
-    params.require(:discussion).permit(:title, :pinned, :closed, posts_attributes: :body)
+    params.require(:discussion).permit(:title, :category_id, :pinned, :closed, posts_attributes: :body)
   end
 
   def set_discussion
