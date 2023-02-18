@@ -1,7 +1,7 @@
 class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit update destroy]
   def index
-    @discussions = Discussion.all.order(pinned: :desc, created_at: :desc)
+    @pagy, @discussions = pagy(Discussion.all.order(pinned: :desc, created_at: :desc))
   end
 
   def new
