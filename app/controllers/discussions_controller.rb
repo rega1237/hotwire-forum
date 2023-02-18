@@ -1,10 +1,11 @@
 class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit update destroy]
   def index
-    @discussions = Discussion.all.order(pinned: :desc, created_at: :desc)
+    @pagy, @discussions = pagy(Discussion.all.order(pinned: :desc, created_at: :desc))
   end
 
   def new
+    authorize! :create, Discussion
     @discussion = Discussion.new
     @discussion.posts.new
   end
@@ -19,11 +20,13 @@ class DiscussionsController < ApplicationController
   end
 
   def show
-    @posts = @discussion.posts.all.order(created_at: :asc)
+    @pagy, @posts = pagy(@discussion.posts.all.order(created_at: :asc))
     @new_post = @discussion.posts.new
   end
 
-  def edit; end
+  def edit
+    authorize! :edit, @discussion
+  end
 
   # rubocop:disable Metrics/MethodLength
   def update
@@ -62,6 +65,7 @@ class DiscussionsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   def destroy
+    authorize! :destroy, @discussion
     @discussion.destroy
     redirect_to discussions_path, notice: 'Discussion was deleted successfully'
   end

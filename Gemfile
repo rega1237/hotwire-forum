@@ -36,6 +36,9 @@ gem 'redis', '~> 4.0'
 # Authentication
 gem 'devise'
 
+# Authorization
+gem 'cancancan'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -79,3 +82,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem 'pagy', '~> 6.0'

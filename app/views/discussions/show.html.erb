@@ -4,6 +4,7 @@
 
 <div id="posts" class="mt-4">
   <%= render partial: "discussions/posts/post", collection: @posts %>
+  <%== pagy_bootstrap_nav(@pagy) %>
 </div>
 
 <div id="<%= dom_id(@new_post) %>" class=my-4>

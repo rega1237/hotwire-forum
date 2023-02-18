@@ -11,9 +11,11 @@
         <% end %>
       </span>
     </div>
-    <div>
-      <%= link_to "Edit", edit_discussion_path(discussion) %> |
-      <%= link_to "Delete", discussion, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'  } %>
-    </div>
+    <% if can? :edit, discussion %>
+      <div>
+        <%= link_to "Edit", edit_discussion_path(discussion) %> |
+        <%= link_to "Delete", discussion, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'  } %>
+      </div>
+    <% end %>
   </div>
 <%end%>
