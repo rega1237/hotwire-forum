@@ -83,4 +83,4 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "pagy", "~> 6.0"
+gem 'pagy', '~> 6.0'

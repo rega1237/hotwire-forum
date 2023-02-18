@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -30,9 +28,10 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
 
     return unless user.present?
-      can :create, Discussion
-      can [:update, :destroy], Discussion, user: user
-      can :create, Post
-      can [:update, :destroy], Post, user: user
+
+    can :create, Discussion
+    can(%i[update destroy], Discussion, user:)
+    can :create, Post
+    can %i[update destroy], Post, user:
   end
 end

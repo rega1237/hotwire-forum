@@ -24,7 +24,10 @@ module Discussions
       respond_to do |format|
         if @post.save
           @pagy, @posts = pagy(@discussion.posts.all.order(created_at: :asc))
-          format.html { redirect_to "/discussions/#{@discussion.id}?page=#{@pagy.last}", notice: 'Your post was created successfully.' }
+          format.html do
+            redirect_to "/discussions/#{@discussion.id}?page=#{@pagy.last}",
+                        notice: 'Your post was created successfully.'
+          end
         else
           format.turbo_stream
           format.html { render :new, status: :unprocessable_entity }
