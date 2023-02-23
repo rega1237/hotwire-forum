@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg bg-light rounded" aria-label="Thirteenth navbar example">
   <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
+    <div class="collapse navbar-collapse d-lg-flex" id="navbar">
       <%= link_to "Forum", root_path, class: "navbar-brand col-lg-3 me-0" %>
       <ul class="navbar-nav col-lg-6 justify-content-lg-center">
         <li class="nav-item">
@@ -26,12 +26,41 @@
         </li>
       </ul>
 
-      <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+      <div class="d-lg-flex col-lg-3 justify-content-lg-end align-items-lg-center">
         <% if !current_user %>
           <%= link_to "Log In", new_user_session_path, class: "nav-item nav-link" %>
           <%= link_to "Sign Up", new_user_registration_path, class: "nav-item nav-link ms-4" %>
         <% else %>
-          <%= link_to current_user.username, edit_user_registration_path, class: "nav-item nav-link" %>
+          <div class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" data-controller="notifications" data-action="click->notifications#markAsRead">
+              <i class="bi bi-bell bell"></i>
+              <% if current_user.notifications.unread.count > 0 %>
+              <span class="badge bg-danger">
+              <%= current_user.notifications.unread.count %>
+              </span>
+              <% end %>
+            </a>
+
+            <ul class="dropdown-menu notifications_menu" aria-labelledby="notificationsDropdown">
+              <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
+                <li>
+                  <% noticed_notification = notification.to_notification %>
+                  <%= link_to noticed_notification.url, class: "dropdown-item #{notification.unread? ? 'fw-bold' : ''}" do %>
+                    <%= "#{noticed_notification.message} | #{time_ago_in_words(notification.created_at)}" %>
+                  <% end %>
+                </li>
+              <% end %>
+              <% if current_user.notifications.count > 5 %>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <%= link_to "See all notifications", notifications_path %>
+                </li>
+              <% end %>
+            </ul>
+
+          </div>
+          <%= link_to current_user.username, edit_user_registration_path, class: "nav-item nav-link ms-4" %>
           <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-item nav-link ms-4" %>
         <% end %>
       </div>
