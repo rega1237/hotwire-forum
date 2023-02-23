@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_rich_text :body
   has_noticed_notifications
 
+  after_create_commit { send_notifications }
+
   after_create_commit lambda {
                         broadcast_append_later_to discussion, partial: 'discussions/posts/post', locals: { post: self }
                       }
@@ -13,4 +15,12 @@ class Post < ApplicationRecord
   after_destroy_commit -> { broadcast_remove_later_to discussion }
 
   validates :body, presence: true
+
+  private
+
+  def send_notifications
+    return if Current.user == self.discussion.user
+
+    NewPostNotification.with(post: self).deliver_later(self.discussion.user)
+  end
 end
