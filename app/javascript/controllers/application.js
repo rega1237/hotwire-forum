@@ -6,4 +6,7 @@ const application = Application.start()
 application.debug = false
 window.Stimulus   = application
 
+import NotificationController from "./notifications_controller"
+application.register("notifications", NotificationController)
+
 export { application }
