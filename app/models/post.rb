@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   after_update_commit lambda {
                         broadcast_replace_later_to discussion, partial: 'discussions/posts/post', locals: { post: self }
                       }
-  after_destroy_commit -> { broadcast_remove_later_to discussion }
+  after_destroy_commit -> { broadcast_remove_to discussion }
 
   validates :body, presence: true
 

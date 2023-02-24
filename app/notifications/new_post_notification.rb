@@ -18,7 +18,7 @@ class NewPostNotification < Noticed::Base
   # Define helper methods to make rendering easier.
 
   def message
-    "New post in #{params[:post].discussion.title}"
+    "New post in #{params[:post].discussion.title.to_s[0..20]}..."
   end
 
   def url
