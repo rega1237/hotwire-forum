@@ -33,23 +33,29 @@
         <% else %>
           <div class="nav-item dropdown">
 
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" data-controller="notifications" data-action="click->notifications#markAsRead">
+            <a class="nav-link hidden-arrow" href="#" data-bs-toggle="dropdown" aria-expanded="false" data-controller="notifications" data-action="click->notifications#markAsRead">
               <i class="bi bi-bell bell"></i>
               <% if current_user.notifications.unread.count > 0 %>
-              <span class="badge bg-danger">
+              <span class="badge rounded-pill badge-notification bg-danger">
               <%= current_user.notifications.unread.count %>
               </span>
               <% end %>
             </a>
 
             <ul class="dropdown-menu notifications_menu" aria-labelledby="notificationsDropdown">
-              <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
-                <li>
-                  <% noticed_notification = notification.to_notification %>
-                  <%= link_to noticed_notification.url, class: "dropdown-item #{notification.unread? ? 'fw-bold' : ''}" do %>
-                    <%= "#{noticed_notification.message} | #{time_ago_in_words(notification.created_at)}" %>
-                  <% end %>
+              <% if current_user.notifications.size < 1 %>
+                <li class="dropdown-item">
+                  <p>There are no notifications</p>
                 </li>
+              <% else %>
+                <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
+                  <li>
+                    <% noticed_notification = notification.to_notification %>
+                    <%= link_to noticed_notification.url, class: "dropdown-item #{notification.unread? ? 'fw-bold' : ''}" do %>
+                      <%= "#{noticed_notification.message} | #{time_ago_in_words(notification.created_at)}" %>
+                    <% end %>
+                  </li>
+                <% end %>
               <% end %>
               <% if current_user.notifications.count > 5 %>
                 <li><hr class="dropdown-divider"></li>
