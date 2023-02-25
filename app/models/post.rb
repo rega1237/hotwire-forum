@@ -19,8 +19,8 @@ class Post < ApplicationRecord
   private
 
   def send_notifications
-    return if Current.user == self.discussion.user
+    return if Current.user == discussion.user
 
-    NewPostNotification.with(post: self).deliver_later(self.discussion.user)
+    NewPostNotification.with(post: self).deliver_later(discussion.user)
   end
 end

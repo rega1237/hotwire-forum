@@ -24,5 +24,4 @@ class NewPostNotification < Noticed::Base
   def url
     discussion_path(params[:post].discussion)
   end
-
 end

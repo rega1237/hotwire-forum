@@ -85,4 +85,4 @@ end
 
 gem 'pagy', '~> 6.0'
 
-gem "noticed", "~> 1.6"
+gem 'noticed', '~> 1.6'
