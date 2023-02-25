@@ -19,6 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notifications
-    @notifications = Current.user.notifications.reverse
+    @notifications = Current.user.notifications.order(created_at: :desc).limit(5)
   end
 end

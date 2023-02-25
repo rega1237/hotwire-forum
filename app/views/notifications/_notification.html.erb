@@ -1,0 +1,6 @@
+<li id='<%= dom_id(notification) %>'>
+  <% noticed_notification = notification.to_notification %>
+  <%= link_to noticed_notification.url, class: "dropdown-item #{notification.unread? ? 'fw-bold' : ''}" do %>
+    <%= "#{noticed_notification.message} | #{time_ago_in_words(notification.created_at)}" %>
+  <% end %>
+</li>

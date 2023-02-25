@@ -42,20 +42,13 @@
               <% end %>
             </a>
 
-            <ul class="dropdown-menu notifications_menu" aria-labelledby="notificationsDropdown">
+            <ul class="dropdown-menu notifications_menu" id="notifications" aria-labelledby="notificationsDropdown">
               <% if current_user.notifications.size < 1 %>
                 <li class="dropdown-item">
                   <p>There are no notifications</p>
                 </li>
               <% else %>
-                <% current_user.notifications.order(created_at: :desc).limit(5).each do |notification| %>
-                  <li>
-                    <% noticed_notification = notification.to_notification %>
-                    <%= link_to noticed_notification.url, class: "dropdown-item #{notification.unread? ? 'fw-bold' : ''}" do %>
-                      <%= "#{noticed_notification.message} | #{time_ago_in_words(notification.created_at)}" %>
-                    <% end %>
-                  </li>
-                <% end %>
+                  <%= render partial: 'notifications/notification', collection: @notifications  %>
               <% end %>
               <% if current_user.notifications.count > 5 %>
                 <li><hr class="dropdown-divider"></li>
