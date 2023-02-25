@@ -14,4 +14,10 @@ Rails.application.routes.draw do
       get "categories/:id", to: "categories/discussions#index", as: "categories"
     end
   end
+
+  resources :notifications do
+    collection do
+      put :mark_as_read
+    end
+  end
 end

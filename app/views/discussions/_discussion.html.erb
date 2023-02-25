@@ -1,7 +1,24 @@
 <div id= '<%= dom_id(discussion) %>'class="mb-2">
-  <%= link_to discussion_path(discussion), class: "text-decoration-none text-dark" do %>
-    <h2> <%= discussion.title %> </h2>
-  <%end%>
-  Pinned: <%= discussion.pinned %> | Closed: <%= discussion.closed %> <br>
-  Posted in: <%= discussion.category.name %> || <%= discussion.posts.count %> posts
+
+  <div class="row">
+    <div class="col-2 text-center m-auto">
+      <i class="bi bi-person-square" style="font-size:3.5rem;"></i>
+    </div>
+
+    <div class="col-8">
+      <%= link_to discussion_path(discussion), class: "text-decoration-none text-dark" do %>
+        <h5> <%= discussion.title %> </h5>
+      <%end%>
+      <ul class="d-flex list-unstyled">
+        <li><i class="bi bi-person"></i>  <%= discussion.user.name %>  <%= discussion.user.last_name %></li>
+        <li class="mx-3"><i class="bi bi-calendar"></i>  <%= time_ago_in_words(discussion.created_at) %></li>
+      </ul>
+    </div>
+
+    <div class="col-2 m-auto">
+      <%= link_to categories_discussions_path(discussion.category), class: "text-decoration-none text-dark" do %>
+        <p> <i class="bi bi-tags-fill"></i> <%= discussion.category.name %> </p>
+      <%end%>
+    </div>
+  </div>
 </div>
