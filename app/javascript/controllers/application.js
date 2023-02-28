@@ -9,4 +9,7 @@ window.Stimulus   = application
 import NotificationController from "./notifications_controller"
 application.register("notifications", NotificationController)
 
+import VisibilityController from "./visibility_controller"
+application.register("visibility", VisibilityController)
+
 export { application }
