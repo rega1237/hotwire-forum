@@ -3,8 +3,9 @@ class Discussions::Posts::RepliesController < ApplicationController
   before_action :set_post
 
   def create
+    puts reply_params.inspect
     @reply = @post.replies.new(reply_params)
-    @reply.user = current_user
+
     if @reply.save
       redirect_to @post.discussion, notice: 'Your reply was created successfully.'
     else

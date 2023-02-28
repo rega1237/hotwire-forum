@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <%= f.label :body, class: "visually-hidden form-label" %>
-  <%= f.rich_text_area :body, placeholder: "Add your reply", autofocus: true %>
+  <%= f.rich_text_area :body, placeholder: "Add your reply", autofocus: true, id: "reply_#{post.id}" %>
 
   <%= f.submit "Create Reply" %>
 <% end %>
