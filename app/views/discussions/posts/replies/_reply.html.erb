@@ -2,5 +2,6 @@
   <div>
     <%= reply.body %>
     <%= link_to "edit", edit_discussion_post_reply_path(@discussion, reply.post, reply) %>
+    <%= link_to "Delete", discussion_post_reply_path(@discussion, reply.post, reply), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }%>
   </div>
 <% end %>

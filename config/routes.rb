@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :discussions do
     resources :posts, only: [:create, :destroy, :show, :edit, :update], module: :discussions do
-      resources :replies, only: [:create, :update, :edit], module: :posts
+      resources :replies, only: [:create, :update, :edit, :destroy], module: :posts
     end
 
     collection do
