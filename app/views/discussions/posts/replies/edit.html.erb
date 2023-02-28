@@ -11,8 +11,8 @@
       </ul>
     </div>
   <% end %>
-  <%= f.label :body %>
-  <%= f.text_area :body, rows: 5 %>
+  <%= f.label :body, class: "visually-hidden form-label" %>
+  <%= f.rich_text_area :body, placeholder: "Add your reply", autofocus: true %>
 
   <%= f.submit "Update Reply" %>
 <% end %>
