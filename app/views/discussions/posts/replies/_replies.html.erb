@@ -1,0 +1,7 @@
+<%= render partial: 'discussions/posts/replies/form', locals: {discussion: discussion, post: post, new_reply: post.replies.new }%>
+
+<% replies.each do |reply| %>
+  <div class="reply">
+    <%= reply.body %>
+  </div>
+<% end %>

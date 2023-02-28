@@ -1,0 +1,17 @@
+<%= form_for([discussion, post, new_reply]) do |f| %>
+  <% if new_reply.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(new_reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
+
+      <ul>
+        <% new_reply.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.label :body %>
+  <%= f.text_area :body, rows: 5 %>
+
+  <%= f.submit "Create Reply" %>
+<% end %>

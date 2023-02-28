@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :discussions do
-    resources :posts, only: [:create, :destroy, :show, :edit, :update], module: :discussions
+    resources :posts, only: [:create, :destroy, :show, :edit, :update], module: :discussions do
+      resources :replies, only: [:create], module: :posts
+    end
 
     collection do
       get "categories/:id", to: "categories/discussions#index", as: "categories"
