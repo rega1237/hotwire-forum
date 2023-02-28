@@ -1,7 +1,7 @@
-<%= render partial: 'discussions/posts/replies/form', locals: {discussion: discussion, post: post, new_reply: post.replies.new }%>
+<div id="replies">
+  <%= render partial: 'discussions/posts/replies/reply', collection: post.replies %>
+</div>
 
-<% replies.each do |reply| %>
-  <div class="reply">
-    <%= reply.body %>
-  </div>
-<% end %>
+<div id="<%= dom_id(post.replies.new) %>" class=my-4>
+  <%= render partial: 'discussions/posts/replies/form', format: :html, locals: {discussion: discussion, post: post, new_reply: post.replies.new } %>
+</div>

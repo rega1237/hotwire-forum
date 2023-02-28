@@ -12,6 +12,20 @@ class Discussions::Posts::RepliesController < ApplicationController
     end
   end
 
+  def edit
+    @discussion = @post.discussion
+    @reply = @post.replies.find(params[:id])
+  end
+
+  def update
+    @reply = @post.replies.find(params[:id])
+    if @reply.update(reply_params)
+      redirect_to @post.discussion, notice: 'Your reply was updated successfully.'
+    else
+      redirect_to @post.discussion, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @reply = @post.replies.find(params[:id])
     @reply.destroy
