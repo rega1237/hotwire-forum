@@ -7,7 +7,7 @@ ruby '3.1.2'
 gem 'rails', '~> 7.0.4'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'sprockets-rails'
+gem 'sprockets-rails', '= 2.3.3'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
@@ -86,3 +86,9 @@ end
 gem 'pagy', '~> 6.0'
 
 gem 'noticed', '~> 1.6'
+
+gem 'omniauth'
+
+gem 'omniauth-google-oauth2'
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
